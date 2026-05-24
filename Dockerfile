@@ -1,5 +1,5 @@
 # Stage 1: Build assets
-FROM node:18-alpine AS assets-builder
+FROM node:22-alpine AS assets-builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -41,7 +41,8 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
+RUN chmod +x docker/run.sh
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["docker/run.sh"]
