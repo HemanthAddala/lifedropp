@@ -7,5 +7,11 @@ echo "Configuring Nginx to listen on port $PORT..."
 sed -i "s/listen 80 default_server;/listen ${PORT} default_server;/g" /etc/nginx/nginx.conf
 sed -i "s/listen \[::\]:80 default_server;/listen \[::\]:${PORT} default_server;/g" /etc/nginx/nginx.conf
 
+# Run database migrations on startup
+echo "Pre-run: Waiting for database to initialize..."
+sleep 4
+echo "Running Laravel database migrations..."
+php artisan migrate --force
+
 # Run supervisord
 exec /usr/bin/supervisord -c /etc/supervisord.conf
