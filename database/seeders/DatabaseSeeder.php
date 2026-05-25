@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Avoid duplicate seeding on database restarts
-        if (User::count() > 0) {
+        if (User::where('email', 'admin@lifedrop.org')->exists()) {
             return;
         }
 
