@@ -12,6 +12,8 @@ echo "Pre-run: Waiting for database to initialize..."
 sleep 4
 echo "Running Laravel database migrations..."
 php artisan migrate --force
+echo "Seeding default admin and mock clinical data..."
+php artisan db:seed --force
 
 # Run supervisord
 exec /usr/bin/supervisord -c /etc/supervisord.conf

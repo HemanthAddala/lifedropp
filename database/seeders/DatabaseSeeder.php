@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Avoid duplicate seeding on database restarts
+        if (User::count() > 0) {
+            return;
+        }
+
         // 1. Create Admin Account
         User::create([
             'name' => 'Lifedrop Administrator',
